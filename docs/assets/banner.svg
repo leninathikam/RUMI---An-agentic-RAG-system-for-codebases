@@ -1,0 +1,29 @@
+<svg width="1200" height="260" viewBox="0 0 1200 260" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="260" rx="18" fill="url(#bg)"/>
+  <circle cx="1060" cy="70" r="90" fill="url(#accent)" opacity="0.15"/>
+  <circle cx="140" cy="210" r="120" fill="url(#accent)" opacity="0.12"/>
+
+  <text x="60" y="110" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="72" font-weight="700" fill="#f8fafc">RUMI</text>
+  <text x="60" y="150" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" fill="#94a3b8">Agentic RAG for your codebase</text>
+
+  <text x="60" y="195" font-family="Consolas, Menlo, monospace" font-size="16" fill="#38bdf8">$ rumi_claude</text>
+  <text x="60" y="220" font-family="Consolas, Menlo, monospace" font-size="16" fill="#a855f7">&gt; /ask "where is the retriever configured?"</text>
+
+  <rect x="850" y="40" width="300" height="180" rx="12" fill="#0b1220" stroke="#334155" stroke-width="1"/>
+  <text x="875" y="70" font-family="Consolas, Menlo, monospace" font-size="14" fill="#38bdf8">index → retrieve</text>
+  <text x="875" y="95" font-family="Consolas, Menlo, monospace" font-size="14" fill="#a855f7">plan → execute</text>
+  <text x="875" y="120" font-family="Consolas, Menlo, monospace" font-size="14" fill="#4ade80">cache → recall</text>
+  <text x="875" y="145" font-family="Consolas, Menlo, monospace" font-size="14" fill="#f472b6">skills + MCP</text>
+  <text x="875" y="170" font-family="Consolas, Menlo, monospace" font-size="14" fill="#facc15">watch → reindex</text>
+  <text x="875" y="195" font-family="Consolas, Menlo, monospace" font-size="14" fill="#94a3b8">Claude / GPT</text>
+</svg>
