@@ -30,35 +30,41 @@ task orchestrator into a single REPL.
 
 ```mermaid
 flowchart TD
-    U[User — REPL] -->|"/ask <question>"| ORC[Orchestrator<br/>handle_query]
-    U -->|"/plan <goal>"| PLN[Task Planner]
-    U -->|"/reindex, /show_index"| IDX
-    FS[(Your codebase)] --> WATCH[File Watcher] --> IDX[Indexer<br/>Chroma / Qdrant]
-    IDX --> VS[(Vector Store)]
+    U["User (REPL)"] -->|"/ask question"| ORC["Orchestrator: handle_query"]
+    U -->|"/plan goal"| PLN["Task Planner"]
+    U -->|"/reindex or /show_index"| IDX
 
-    ORC --> CACHE{Semantic Cache<br/>hit?}
-    CACHE -- hit --> U
-    CACHE -- miss --> AGENT[LangGraph Agent]
+    FS["Your codebase"] --> WATCH["File Watcher"]
+    WATCH --> IDX["Indexer: Chroma or Qdrant"]
+    IDX --> VS["Vector Store"]
 
-    AGENT --> T1[search_codebase] --> RET[Retriever] --> VS
-    AGENT --> T2[filesystem / terminal tools]
-    AGENT --> T3[MCP tools] --> MCP[(External MCP Servers)]
-    AGENT --> T4[load_skill] --> SKR[Skill Registry<br/>.rumi/skills/*/SKILL.md]
-    AGENT --> LLM[(Claude / OpenAI)]
+    ORC --> CACHE{"Semantic Cache hit?"}
+    CACHE -->|hit| U
+    CACHE -->|miss| AGENT["LangGraph Agent"]
+
+    AGENT --> T1["search_codebase tool"]
+    T1 --> RET["Retriever"]
+    RET --> VS
+
+    AGENT --> T2["filesystem / terminal tools"]
+    AGENT --> T3["MCP tools"]
+    T3 --> MCP["External MCP Servers"]
+    AGENT --> T4["load_skill tool"]
+    T4 --> SKR["Skill Registry"]
+    AGENT --> LLM["Claude / OpenAI"]
     LLM --> AGENT
-    AGENT --> ORC --> CACHE
-    ORC --> U
+    AGENT --> ORC
 
-    MEM[(SQLite Checkpointer<br/>+ Summarization)] <-.-> AGENT
+    MEM["SQLite Checkpointer + Summarization"] --- AGENT
 
-    PLN --> APR[Human Approval]
-    APR --> STORE[(SQLite Task Store)]
-    STORE --> TORC[Task Orchestrator]
-    TORC --> EXEC[Sub-task Agent<br/>+ LLM-as-judge]
+    PLN --> APR["Human Approval"]
+    APR --> STORE["SQLite Task Store"]
+    STORE --> TORC["Task Orchestrator"]
+    TORC --> EXEC["Sub-task Agent + LLM-as-judge"]
     EXEC --> STORE
     TORC -->|all done| IDX
 
-    WATCH -.invalidate.-> CACHE
+    WATCH -->|invalidate| CACHE
 ```
 
 **Flow summary**
